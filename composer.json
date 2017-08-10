@@ -1,0 +1,15 @@
+{
+    "name": "klepov.e/excel-to-mysql",
+    "description": "import to mysql",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Evgeny.Klyopov",
+            "email": "mail@klepov.info"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "phpoffice/phpexcel": "^1.8"
+    }
+}
