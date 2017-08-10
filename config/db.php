@@ -1,7 +1,9 @@
 <?php
+
 return [
-    'dsn' => 'mysql:host=localhost;dbname=import_excel',
+    'class' => 'yii\db\Connection',
+    'dsn' => 'mysql:host=localhost;dbname=import',
     'username' => 'root',
     'password' => '',
-    'charset' => 'utf8'
+    'charset' => 'utf8',
 ];
