@@ -39,8 +39,12 @@ class ImportController extends Controller
 
         $this->stdout('Worksheets title: ' . implode(', ', array_keys($worksheets)) . "\n", Console::FG_GREEN);
 
+        $headers = [];
         foreach ($worksheets as $sheet => $rows) {
-            $headers = array_shift($rows);
+            if (empty($headers)) {
+                $headers = array_shift($rows);
+                $headers = array_diff($headers, ['']);
+            }
 
             $this->stdout('Write worksheets - "' . $sheet . '"' . "\n", Console::FG_GREEN);
             $tableDb = $this->getTableName($tableDb);
@@ -51,11 +55,13 @@ class ImportController extends Controller
                 $newRow = [];
 
                 foreach ($row as $key => $value) {
-                    if (empty($this->fieldType[$headers[$key]]) || $this->fieldType[$headers[$key]] != 'text') {
-                        $this->fieldType[$headers[$key]] = $this->getTypeValue($value, $this->fieldType[$headers[$key]]);
-                    }
+                    if (isset($headers[$key])) {
+                        if (empty($this->fieldType[$headers[$key]]) || $this->fieldType[$headers[$key]] != 'text') {
+                            $this->fieldType[$headers[$key]] = $this->getTypeValue($value, $this->fieldType[$headers[$key]]);
+                        }
 
-                    $newRow[$headers[$key]] = $value;
+                        $newRow[$headers[$key]] = $value;
+                    }
                 }
 
                 $rows[$numberRow] = $newRow;
